@@ -1,0 +1,780 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>GVT Guide</title>
+<meta name="Description" content="GVT Guide" />
+<meta name="Keywords" content="GVT" />
+<meta name="Owner" content="Kentaroh Noji/IBM/Japan" />
+<meta name="Robots" content="index,follow" />
+<meta name="Security" content="IBM internal use only" />
+<meta name="Source" content="" />
+<meta name="IBM.Country" content="JP" />
+<meta name="DC.Date" scheme="iso8601" content="2004-09-24" />
+<meta name="DC.Language" scheme="rfc1766" content="en" />
+<meta name="DC.Rights" content="Copyright (c) 2004 by IBM Corporation" />
+<meta name="DC.Type" scheme="IBM_ContentClassTaxonomy" content="" />
+<meta name="DC.Subject" scheme="IBM_SubjectTaxonomy" content="" />
+<meta name="DC.Publisher" content="IBM Corporation" />
+<meta name="IBM.Effective" scheme="W3CDTF" content="" />
+<meta name="IBM.Industry" scheme="IBM_IndustryTaxonomy" content="" />
+<!-- 
+<script type="text/javaScript" src="https://w3.ibm.com/ui/v8/scripts/scripts.js"></script>
+<script type="text/javaScript">
+	var SiteSrchURL = "http://labweb.torolab.ibm.com/gcoc/documents/gvtguide/";
+
+	function CkSrchURL () {
+		if (document.forms[0].url.value == "") {
+			document.forms[0].url.value = SiteSrchURL
+		} else {
+			document.forms[0].url.value = ""
+		}
+	}
+</script>
+-->
+
+
+<!-- For appendix tab  -->
+<script>
+
+window.onload=function() {
+tab.setup = {
+   tabs: document.getElementById('tab').getElementsByTagName('li'),
+   pages: [
+      document.getElementById('alphabetical'),
+      document.getElementById('functional'),
+   ]
+}
+tab.init();
+}
+  
+var tab = {
+   init: function(){
+      var tabs = this.setup.tabs;
+      var pages = this.setup.pages;
+  
+      for(i=0; i<pages.length; i++) {
+         if(i !== 0) pages[i].style.display = 'none';
+         tabs[i].onclick = function(){ tab.showpage(this); return false; };
+      }
+   },
+  
+   showpage: function(obj){
+      var tabs = this.setup.tabs;
+      var pages = this.setup.pages;
+      var num;
+  
+      for(num=0; num<tabs.length; num++) {
+         if(tabs[num] === obj) break;
+      }
+  
+      for(var i=0; i<pages.length; i++) {
+         if(i == num) {
+            pages[num].style.display = 'block';
+            tabs[num].className = 'selected';
+         }
+         else{
+            pages[i].style.display = 'none';
+            tabs[i].className = null;
+         }
+      }
+   }
+}
+
+</script>
+
+<link rel="stylesheet" type="text/css" href="https://w3.ibm.com/ui/v8/css/v4-screen.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<style type="text/css" media="all">
+<!--
+@import url("https://w3.ibm.com/ui/v8/css/screen.css");
+
+@import url("https://w3.ibm.com/ui/v8/css/interior.css");
+
+@import url("https://w3.ibm.com/ui/v8/css/icons.css");
+
+@import url("https://w3.ibm.com/ui/v8/css/interior-no-nav.css");
+
+
+/*--Tab User Interface Sample--*/
+
+
+body#tab_sample div#tab_appendix {
+	margin:0 auto 0 auto;
+	width:450px;
+	text-align:left;
+	}
+
+div#tab_appendix ul#tab {
+	margin:0;
+	padding:0;
+	border-bottom:1px solid #ccc;
+	background-color:#fff;
+	float:left;
+	width:100%;
+	list-style:none;
+	}
+
+div#tab_appendix ul#tab li {
+	margin:0 0 0 1em;
+	padding:0.2em 0;
+	text-align:center;
+	border:1px solid #CCC;
+	border-bottom:none;
+	float:left;
+	width:10em;
+	}
+
+div#tab_appendix ul#tab li.selected {
+	background-color:#47b;
+	color:#FFF;
+	}
+
+div#tab_appendix ul#tab li.selected a {
+	color:#FFF;
+	}
+
+div#tab_appendix dl {
+	margin:0;
+	padding:1em;
+	color:#000;
+	border:1px solid #ccc;
+	border-top:none;
+	background-color:#fff;
+	clear:both;
+	}
+
+div#tab_appendix dl dt {
+	margin-bottom:1em;
+	padding-bottom:1em;
+	border-bottom:1px dotted #fff;
+	}
+
+div#tab_appendix dl dd {
+
+	}
+
+div#tab_appendix dl dd p {
+	margin-bottom:1em;
+	}
+
+
+
+-->
+</style>
+<!-- print stylesheet MUST follow imported stylesheets -->
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" media="print" href="https://w3.ibm.com/ui/v8/css/print.css" />
+</head>
+<body id="w3-ibm-com" class="article">
+<a name="top" />
+<!-- start accessibility prolog -->
+<div class="skip"><a></a><a href="#content-main" accesskey="2">Skip to main content</a></div>
+<div id="access-info">
+<p class="access">The access keys for this page are:</p>
+<ul class="access">
+	<li>ALT plus 0 links to this site's <a href="http://w3.ibm.com/w3/access-stmt.html" accesskey="0">Accessibility
+	Statement.</a></li>
+	<li>ALT plus 1 links to the w3.ibm.com home page.</li>
+	<li>ALT plus 2 skips to main content.</li>
+	<li>ALT plus 4 skips to the search form.</li>
+	<li>ALT plus 9 links to the feedback page.</li>
+</ul>
+<p class="access">Additional accessibility information for w3.ibm.com can be found <a
+	href="http://w3.ibm.com/w3/access-stmt.html">on the w3 Accessibility Statement page.</a></p>
+</div>
+<!-- end accessibility prolog -->
+<!-- start masthead //////////////////////////////////////////// -->
+<div id="masthead">
+<h2 class="access">Start of masthead</h2>
+<div id="prt-w3-sitemark"><img src="https://w3.ibm.com/ui/v8/images/id-w3-sitemark-simple.gif" alt="" width="54"
+	height="33" /></div>
+<div id="prt-ibm-logo"><img src="https://w3.ibm.com/ui/v8/images/id-ibm-logo-black.gif" alt="IBM Logo" width="44"
+	height="15" /></div>
+<div id="w3-sitemark"><img src="https://w3.ibm.com/ui/v8/images/id-w3-sitemark-large.gif" alt="" width="266"
+	height="70" usemap="#sitemark_map" /><map id="sitemark_map" name="sitemark_map">
+	<area shape="rect" alt="Link to W3 Home Page" coords="0,0,130,70" href="http://w3.ibm.com/" accesskey="1" />
+</map></div>
+<div id="site-title-only">IBM Globalization</div>
+<div id="ibm-logo"><img src="https://w3.ibm.com/ui/v8/images/id-ibm-logo.gif" alt="IBM Logo" width="44"
+	height="15" /></div>
+<div id="persistent-nav"><a id="w3home" href="http://w3.ibm.com/"> w3 home </a><a id="bluepages"
+	href="http://w3.ibm.com/bluepages/"> BluePages </a><a id="helpnow" href="http://w3.ibm.com/help/"> HelpNow </a><a
+	id="feedback" href="http://w3.ibm.com/feedback/" accesskey="9"> Feedback </a></div>
+<div id="header-search">
+<form action="http://w3.ibm.com/search/w3results.jsp" method="get" id="search">
+<table cellspacing="0" cellpadding="0" class="header-search" summary="search">
+	<tr>
+		<td class="label"><label for="header-search-field">Search w3</label></td>
+		<td class="field"><input id="header-search-field" name="qt" type="text" accesskey="4" size="20" /></td>
+		<td class="submit"><input id="header-search-btn" type="image" alt="Go"
+			src="https://w3.ibm.com/ui/v8/images/btn-go-dark.gif" /></td>
+	</tr>
+</table>
+</form>
+</div>
+<div id="browser-warning"><img src="https://w3.ibm.com/ui/v8/images/icon-system-status-alert.gif" alt="Error"
+	width="12" height="10" /> This Web page is best used in a modern browser. Since your browser is no longer supported by
+IBM, please upgrade your web browser at the <a href="http://w3.ibm.com/download/standardsoftware/">ISSI site</a>.</div>
+</div>
+<!-- stop masthead //////////////////////////////////////////// -->
+<!-- start content //////////////////////////////////////////// -->
+<div id="content">
+<h1 class="access">Start of main content</h1>
+<!-- start content head -->
+<div id="content-head">
+<p id="date-stamp">Updated on 2013-06-20 17:00:00 +0900</p>
+<div class="hrule-dots">&nbsp;</div>
+<p id="breadcrumbs"><a href="http://w3-03.ibm.com/globalization/page/982">Globalization Central Home</a> &gt; <a
+	href="http://w3-03.ibm.com/globalization/page/2643">Product Development &amp; Test</a> &gt; <a
+	href="http://w3-03.ibm.com/globalization/page/2772">Publications</a> &gt;<a href="index.htm"> GVT Guide</a> &gt;</p>
+</div>
+<!-- start main content -->
+<div id="content-main" style="width: 619">
+<a name="content-main"></a>
+
+<h1>GVT Guide</h1>
+<br />
+Version 2.0.11<br />
+<br />
+<span style="font-weight: 400"><a href="ack.htm#Edit" target="AckEdit">Editors</a></span><br />
+<br />
+<hr />
+<font size=1>
+Table of Contents:<br />
+<br />
+<a href="#About">About This Document</a><br />
+<br />
+<a href="#INSTRUCTIONS">INSTRUCTIONS FOR READERS</a><br />
+<br />
+<a href="#1">1. Introduction</a><br />
+<a href="#2">2. GVT Resources</a><br />
+<a href="#3">3. Test Areas</a><br />
+&nbsp;&nbsp;&nbsp;<a href="#3.1.">3.1. Installation</a><br />
+&nbsp;&nbsp;&nbsp;<a href="#3.2.">3.2. Data input from a user interface</a><br />
+&nbsp;&nbsp;&nbsp;<a href="#3.3.">3.3. Data input from a software interface</a><br />
+&nbsp;&nbsp;&nbsp;<a href="#3.4.">3.4. Data computation</a><br />
+&nbsp;&nbsp;&nbsp;<a href="#3.5.">3.5. Data output for a software interface</a><br />
+&nbsp;&nbsp;&nbsp;<a href="#3.6.">3.6. Data output for a user interface</a><br />
+<a href="#Appendices">Appendices</a><br />
+<br />
+<a href="documentsummary.htm" target="Doclist">Documents list (Platform type Order)</a><br />
+<a href="ack.htm#Acknowledgements" target="AckEdit">Acknowledgements</a><br />
+<a target="History" href="history.htm">Change history</a><br/><br/>
+</font>
+
+<h4><b>NOTE: </b>GVT Guide modified or added some pages described in the <a target="History" href="history.htm">Change
+history</a>.</h4>
+<hr/>
+
+<h2><a name="About">About</a> This Document</h2>
+<p>The GVT (Globalization Verification Test) is an essential phase in the software development cycle, meant to
+ensure the basic global functionalities including support for languages, character sets, and various kinds of culturally
+specific formatting rules. <br />
+</p>
+<br />
+The GVT Guide provides information on the test areas that may need be covered in a GVT, and essential testing techniques
+with step-by-step instructions that the testers should follow. It also provides the test data that is needed. With the
+techniques explained in this document and the test data, the testers don&#39;t necessarily have to be native speakers of
+the target languages, and they can still do as well as the native speakers working as globalization specialists. <br />
+<br />
+The primary entry points to the GVT Guide are determined by the <b><a target="GVT-Web"
+	href="http://w3-03.ibm.com/globalization/page/2614#DBWizard">GVT Wizard</a></b>. The GVT Wizard identifies what may need
+testing and provides deep links into this GVT Guide which explains how each test area can be tested. This GVT Guide
+contains numerous tests that may not be at all relevant to your software and so you should not assume that all the tests
+presented here should be performed on your software. <br />
+<br />
+<br />
+<b><a name="INSTRUCTIONS">INSTRUCTIONS</a> FOR READERS:</b> <br />
+<br />
+1) This document requires that fonts which support the CJK Unified Ideograph Extension-B be installed to display the test data properly. <a
+	target="Appendix-D" href="appendices/Appendix-G.htm">Appendix-G</a> (Windows platforms) or <a target="Appendix-H"
+	href="appendices/Appendix-H.htm">Appendix-H</a>&nbsp; (Linux) describes how to do this. Additional information about
+displaying Unicode characters is described in <a target="unicode-display_problems"
+	href="http://www.unicode.org/help/display_problems.html">Unicode web site</a>. <br />
+<br />
+2) The GVT Guide is also available for: <br />
+<ul>
+	<li><a target="GVT-PDF" href="zip/GVTGuideV2.0.11.zip">Download V2.0.11 (zip) - Latest</a></li>
+	<li><a target="GVT-PDF" href="zip/GVTGuideV2.0.10.zip">Download V2.0.10 (zip)</a></li>
+	<li><a target="GVT-PDF" href="zip/GVTGuideV2.0.9.zip">Download V2.0.9 (zip)</a></li>
+<!-- <li><a target="GVT-PDF" href="zip/GVTGuideV2.0.8.zip">Download V2.0.8 (zip)</a></li>
+	<li><a target="GVT-PDF" href="zip/GVTGuideV2.0.7.zip">Download V2.0.7 (zip)</a></li>
+	<li><a target="GVT-PDF" href="zip/GVTGuideV2.0.5.zip">Download V2.0.5 (zip)</a></li>
+	<li><a target="GVT-PDF" href="zip/GVTGuideV2.0.4.zip">Download V2.0.4 (zip)</a></li>
+	<li><a target="GVT-PDF" href="zip/GVTGuideV2.0.3.zip">Download V2.0.3 (zip)</a></li>
+	<li><a target="GVT-PDF" href="zip/GVTGuideV2.0.2.zip">Download V2.0.2 (zip)</a></li>
+	<li><a target="GVT-PDF" href="zip/GVTguideV2.0.zip">Download V2.0 (zip)</a></li>
+	<li><a target="GVT-PDF" href="zip/GVTguideV1.3.zip">Download V1.3 (zip)</a></li>
+-->
+</ul>
+<br />
+<hr />
+<h2><a name="1">1</a>. Introduction</h2>
+<p>The objective of a GVT is to verify the globalization function enablement so that we deliver quality software to
+the worldwide market. The GVT must be performed prior to the TVT (Translation Verification Test), and is recommended to
+be done as a part of the FVT (Functional Verification Test). These process requirements are based on many years of
+experience with worldwide General Availability (GA) releases for many products. All IBM software development teams are
+required to perform a GVT, and the completion of the GVT is an entry criterion for the TVT. <br />
+<br />
+In the proper development process, the global functions of the software should be implemented as prescribed in the
+&quot;<a target="GWP" href="http://w3.ibm.com/ux/site.nsf/g/publish/1801">Globalization White Paper</a>&quot;, which
+defines the basic language support required for each software family and software type.
+</p>
+<h2><a name="2">2.</a> GVT Resources</h2>
+<p>
+The following GVT resources are available along with the GVT Guide.
+</p>
+<ul>
+	<li><a target="GVT-Web" href="http://w3-03.ibm.com/globalization/page/2614">GVT process web site</a></li>
+	<li><a target="GVT-Web" href="http://w3-03.ibm.com/globalization/page/2614#DBWizard">GVT Wizard</a><br />
+	</li>
+</ul>
+<p>The GVT process page describes the IBM GVT process from end to end and includes a GVT plan template. The GVT
+Wizard, a web-based program, provides a Question and Answer (Q&amp;A) methodology which enables the user, such as a
+product test manager, tester or test leader, to identify the minimal set of globalization test areas that are applicable
+to software.</p>
+
+<h2><a name="3">3.</a>Test Areas</h2>
+<p>Each of the test areas described here has three kinds of related information, a title of the test area matching
+the test area titles used in the <b>GVT Wizard</b>, a description of the test operation, which guides you through the
+testing steps, and some test data, which you can copy and paste, or use as an example to complete the tests. <br />
+<br />
+<b>Repetition of tests in multiple locales<br />
+</b>The GVT Guide documents when specific tests need to be repeated in different locales and also states exactly which
+carefully selected locales are required for such test areas. Unless the GVT Guide states that a test must be done in a
+specific locale, any locale can be used. If no locale is specified by the GVT Guide, and if your software interacts with
+multiple machines, it is a good practice to have the machines all running in different locales and not using the locale
+predominately used by the developers.<br />
+<br />
+<b>Minimum coverage</b><br />
+The test data and scenarios have been chosen in order to provide the minimum adequate coverage for the specific test
+area. In order to perform adequate coverage of a test area you should do all the tests that are described unless the
+test area clearly provides alternate test data to handle situations where only one set of data cannot be used for all
+programs. <br />
+<br />
+<b>Test cases</b><br />
+The GVT Guide does not provide test cases, it provides the test data and generic steps needed in order to perform a
+test. The GVT Guide provides the generic test approach and the test data. Actual test cases that are specific to your
+software need to be produced based on the GVT Guide. It is the responsibility of the test team to produce specific test
+cases for your software based on the steps and test data provided here. <br />
+<br />
+<b>Feedback</b><br />
+We are interested in your feedback, especially if you think that we have an error or have missed something out. Creating
+generic test steps for all software is a very challenging task and the GVT Guide is still relatively new and pages are
+still being added. Please send questions and comments to <a href="mailto:dale2@us.ibm.com?subject=GVT Guide comments">Dale
+Schultz/Westford/IBM</a>.<br />
+<br />
+<b>Structure</b><br />
+There are six major test area categories based on the functional aspects of software. Each test area has one or more
+links to sub-documents in which each test area is described in detail. In order to identify the applicable test areas of
+the software to be tested, the GVT planners or testers should use the <b><a target="GVT-Web"
+	href="http://w3-03.ibm.com/globalization/page/2614#DBWizard">GVT Wizard</a></b> first. The GVT Wizard will provide a report
+containing the identified test areas and will include links to each test area in this guide.<br />
+<br />
+</p>
+<h2 class="bar-blue-med-dark"><a name="3.1.">3.1.</a> Installation<br />
+</h2>
+<ul class="anchor-links">
+	<li>Language support
+	<ul class="anchor-links">
+		<li><a href="subindex/INS-UNF.htm">Install software</a></li>
+		<li><a href="subindex/INS-SWL.htm">Install software in a translated environment</a></li>
+		<li><a href="subindex/INS-LIN.htm">Install the NON-Language pack</a></li>
+		<li><a href="subindex/INS-UIO.htm">Select the language of products, or components installer</a></li>
+		<li><a href="subindex/INS-GVT.htm">Verify installation module</a></li>
+	</ul>
+	</li>
+	<li>Translations
+	<ul class="anchor-links">
+		<li><a href="subindex/ta010-010.htm">Install translations</a></li>
+		<li><a href="subindex/INS-UIL.htm">Select the language of Language Pack installer</a></li>
+	</ul>
+	</li>
+</ul>
+<br />
+<h2 class="bar-blue-med-dark"><a name="3.2.">3.2.</a> Data input from a user interface<br />
+</h2>
+<ul class="anchor-links">
+	<li>Language and Cultural Selectability
+	<ul class="anchor-links">
+		<li><a href="subindex/DIH-SCL.htm">Select locale</a></li>
+		<li><a href="subindex/ta020-020.htm">Change the runtime locale</a></li>
+	</ul>
+	</li>
+	<li>Multilingual support
+	<ul class="anchor-links">
+		<li><a href="subindex/DIH-EML.htm">Enter e-mail address</a></li>
+		<li><a href="subindex/DIH-FRM.htm">Enter characters in forms</a></li>
+		<li><a href="subindex/DIH-VCD.htm">Validate character property</a></li>
+		<li><a href="subindex/DIH-DOM.htm">Enter International Domain Name</a></li>
+	</ul>
+	</li>
+	<li>Language support
+	<ul class="anchor-links">
+		<li><a href="subindex/ta020-010.htm">Enter characters for the file system or object name</a></li>
+		<li><a href="subindex/DIH-DEV.htm">Enter characters from keyboards and Input Method Editors</a></li>
+		<li><a href="subindex/ta020-060.htm">Enter text from clipboard</a></li>
+		<li><a href="subindex/ta020-050.htm">Edit text </a></li>
+		<li><a href="subindex/ta020-080.htm">Enter GB18030 characters (Chinese national standard)</a></li>
+		<li><a href="subindex/DIH-UUN.htm">Enter characters associated with locale</a></li>
+		<li><a href="subindex/DIH-TIL.htm">Validate text length</a></li>
+		<li><a href="subindex/DIH-AHK.htm">Use accelerator key or hot Key</a></li>
+		<li><a href="subindex/DIH-LSS.htm">Enter characters using typeahead or menu</a></li>
+	</ul>
+	</li>
+	<li>Linguistic Technologies
+	<ul class="anchor-links">
+		<li><a href="subindex/DIH-LIN.htm">Select linguistic tools</a></li>
+		<li><a href="subindex/DIH-SER.htm">Search text</a></li>
+	</ul>
+	</li>
+	<li>Country or Region Support
+	<ul class="anchor-links">
+		<li><a href="subindex/DIH-NUM.htm">Enter numeric values </a></li>
+		<li><a href="subindex/ta020-070.htm">Select measurement systems</a></li>
+		<li><a href="subindex/DIH-DAT.htm">Enter date and time</a></li>
+		<li><a href="subindex/DIH-CUR.htm">Enter currency values</a></li>
+		<li><a href="subindex/DIH-ADR.htm">Enter address format</a></li>
+		<li><a href="subindex/DIH-NAM.htm">Enter human name</a></li>
+		<li><a href="subindex/DIH-PHO.htm">Enter telephone numbers</a></li>
+		<li><a href="subindex/DIH-DUR.htm">Enter time duration</a></li>
+	</ul>
+	</li>
+</ul>
+<br />
+<h2 class="bar-blue-med-dark"><a name="3.3.">3.3. </a>Data input from a software interface<br />
+</h2>
+<ul class="anchor-links">
+	<li>Globalization Programming Model
+	<ul class="anchor-links">
+		<li><a href="subindex/DIS-CCD.htm">Verify data type</a></li>
+	</ul>
+	</li>
+	<li>Language and Cultural Selectability
+	<ul class="anchor-links">
+		<li><a href="subindex/DIS-LOC.htm">Switch locales</a> (includes Locales support)</li>
+	</ul>
+	</li>
+	<li>Multilingual support
+	<ul class="anchor-links">
+		<li><a href="subindex/ta030-030.htm">Read Unicode characters</a></li>
+		<li><a href="subindex/ta030-040.htm">Support multiple Unicode Transformation Formats (UTF)</a></li>
+		<li><a href="subindex/ta030-050.htm">Support International Domain Name (IDN)</a></li>
+		<li><a href="subindex/DIS-MAL.htm">Validate sequence of Unicode code points</a></li>
+		<li><a href="subindex/DIS-BOM.htm">Handle Byte Order Mark (BOM)</a></li>
+		<li><a href="subindex/DIS-EML.htm">Accept e-mail address</a></li>
+		<li><a href="subindex/DIS-POP.htm">Accept user names in non-US ASCII</a></li>
+		<li><a href="subindex/DIS-FCL.htm">Use language codes</a></li>
+	</ul>
+	</li>
+	<li>Language support
+	<ul class="anchor-links">
+		<li><a href="subindex/ta030-010.htm">Load files</a></li>
+		<li><a href="subindex/DIS-AFP.htm">Use applicable characters in file system</a></li>
+	</ul>
+	</li>
+	<li>Country or Region Support
+	<ul class="anchor-links">
+		<li><a href="subindex/ta030-020.htm">Perform code page conversions </a></li>
+		<li><a href="subindex/DIS-ADR.htm">Parse address format</a></li>
+		<li><a href="subindex/DIS-CUR.htm">Transfer euro currency values</a></li>
+		<li><a href="subindex/DIS-DAT.htm">Accept date and time</a></li>
+	</ul>
+	</li>
+</ul>
+<br />
+<h2 class="bar-blue-med-dark"><a name="3.4.">3.4. </a>Data computation<br />
+</h2>
+<ul class="anchor-links">
+	<li>Locales
+	<ul class="anchor-links">
+		<li><a href="subindex/ta040-010.htm">Support client locales</a></li>
+		<li><a href="subindex/DCP-CLC.htm">Use customized locale</a></li>
+	</ul>
+	</li>
+	<li>Multilingual support
+	<ul class="anchor-links">
+		<li><a href="subindex/ta040-070.htm">Normalize Unicode characters </a></li>
+		<li><a href="subindex/DCP-IDP.htm">Match identifiers and password </a></li>
+		<li><a href="subindex/DCP-USO.htm">Present national language text in Unicode</a></li>
+		<li><a href="subindex/DCP-EXP.htm">Use Unicode regular expression</a></li>
+		<li><a href="subindex/DCP-UCP.htm">Use Unicode Character Property Model</a></li>
+	</ul>
+	</li>
+	<li>Language support
+	<ul class="anchor-links">
+		<li><a href="subindex/ta040-020.htm">Support upper and lower case mapping </a></li>
+		<li><a href="subindex/ta040-030.htm">Collate national language data </a></li>
+		<li><a href="subindex/ta040-050.htm">Convert the logical order to visual order in bidirectional languages</a></li>
+		<li><a href="subindex/ta040-060.htm">Support text iteration algorithms </a></li>
+	</ul>
+	</li>
+	<li>Linguistic Technologies
+	<ul class="anchor-links">
+		<li><a href="subindex/DCP-SEA.htm">Search text</a></li>
+	</ul>
+	</li>
+	<li>Country or Region Support
+	<ul class="anchor-links">
+		<li><a href="subindex/DCP-PNM.htm">Parse numeric values in cultural formats</a></li>
+		<li><a href="subindex/ta040-080.htm">Support global scheduling functions</a></li>
+		<li><a href="subindex/DCP-PDT.htm">Parse date and time</a></li>
+		<li><a href="subindex/DCP-DAT.htm">Calculate date and time</a></li>
+		<li><a href="subindex/DCP-CUR.htm">Apply currency value</a></li>
+		<li><a href="subindex/DCP-PPH.htm">Parse telephone numbers</a></li>
+		<li><a href="subindex/DCP-MEA.htm">Validate measurement system</a></li>
+	</ul>
+	</li>
+</ul>
+<br />
+<h2 class="bar-blue-med-dark"><a name="3.5.">3.5.</a> Data output for a software interface<br />
+</h2>
+<ul class="anchor-links">
+	<li>Globalization Programming Model
+	<ul class="anchor-links">
+		<li><a href="subindex/DOS-TLS.htm">Generate executable modules, library</a></li>
+		<li><a href="subindex/DOS-DBG.htm">Use the debugger</a></li>
+		<li><a href="subindex/DOS-NTF.htm">Exchange XML</a></li>
+	</ul>
+	</li>
+	<li>Multilingual support
+	<ul class="anchor-links">
+		<li><a href="subindex/ta050-040.htm">Write Unicode characters</a></li>
+		<li><a href="subindex/DOS-HTM.htm">Support Unicode in HTML forms</a></li>
+		<li><a href="subindex/ta050-060.htm">Use Universal Resource Identifier (URI</a>)</li>
+		<li><a href="subindex/DOS-NFC.htm">Normalize Unicode character </a>&nbsp;</li>
+		<li><a href="subindex/DOS-UTF.htm">Produce Unicode Transformation Formats (UTF) encodings</a></li>
+		<li><a href="subindex/DOS-EML.htm">Display Unicode character in e-mail address</a></li>
+		<li><a href="subindex/DOS-MAL.htm">Generate Unicode Transformation Format</a></li>
+		<li><a href="subindex/DOS-LCC.htm">Use language and country code</a></li>
+	</ul>
+	</li>
+	<li>Language support
+	<ul class="anchor-links">
+		<li><a href="subindex/DOS-FIL.htm">Write files </a></li>
+		<li><a href="subindex/ta050-020.htm">Support translated object names</a></li>
+		<li><a href="subindex/ta050-030.htm">Perform code page conversions</a></li>
+		<li><a href="subindex/ta050-070.htm">Write text to clipboard</a></li>
+		<li><a href="subindex/DOS-XML.htm">Generate Numeric Character Reference</a></li>
+	</ul>
+	</li>
+	<li>Country or Region Support
+	<ul class="anchor-links">
+		<li><a href="subindex/DOS-DAT.htm">Output standard time </a></li>
+		<li><a href="subindex/DOS-NUM.htm">Maintain units</a></li>
+		<li><a href="subindex/DOS-MSR.htm">Specify units</a></li>
+		<li><a href="subindex/DOS-PRN.htm">Select paper size</a></li>
+		<li><a href="subindex/DOS-PHO.htm">Output telephone dialing methods</a></li>
+		<li><a href="subindex/DOS-ADR.htm">Generate address data</a></li>
+		<li><a href="subindex/DOS-CUR.htm">Output currency type</a></li>
+	</ul>
+	</li>
+	<li>Translatability
+	<ul class="anchor-links">
+		<li><a href="subindex/DOS-IDE.htm">Isolate translatable resources</a></li>
+	</ul>
+	</li>
+</ul>
+<br />
+<h2 class="bar-blue-med-dark"><a name="3.6.">3.6.</a> Data output for a user interface<br />
+</h2>
+<ul class="anchor-links">
+	<li>Language and Cultural Selectability
+	<ul class="anchor-links">
+		<li><a href="subindex/DOH-DCL.htm">Find misuse of country names</a></li>
+		<li><a href="subindex/DOH-GEO.htm">Link map information</a></li>
+	</ul>
+	</li>
+	<li>Multilingual support
+	<ul class="anchor-links">
+		<li><a href="subindex/DOH-COM.htm">Combine Unicode characters</a></li>
+	</ul>
+	</li>
+	<li>Language support
+	<ul class="anchor-links">
+		<li><a href="subindex/ta060-010.htm">Present characters</a></li>
+		<li><a href="subindex/ta060-060.htm">Collate national language data</a></li>
+		<li><a href="subindex/ta060-140.htm">Support character shaping in bidirectional languages</a></li>
+		<li><a href="subindex/ta060-150.htm">Support GUI mirroring in bidirectional languages</a></li>
+		<li><a href="subindex/ta060-160.htm">Support symmetric swapping in bidirectional languages</a></li>
+		<li><a href="subindex/ta060-170.htm">Support Unicode bidirectional algorithm</a></li>
+		<li><a href="subindex/ta060-180.htm">Support paragraph orientation in bidirectional language</a></li>
+		<li><a href="subindex/DOH-FON.htm">Select font</a></li>
+		<li><a href="subindex/DOH-LOG.htm">View log files</a> (includes multilingual support)</li>
+		<li><a href="subindex/DOH-LTX.htm">Select license text</a></li>
+		<li><a href="subindex/DOH-AVO.htm">Output audio and visual</a></li>
+		<li><a href="subindex/DOH-LIG.htm">Present ligature</a></li>
+		<li><a href="subindex/DOH-IMP.htm">Present e-mail folders</a></li>
+	</ul>
+	</li>
+	<li>Linguistic Technologies
+	<ul class="anchor-links">
+		<li><a href="subindex/ta060-130.htm">Select text </a></li>
+		<li><a href="subindex/DOH-TRN.htm">Transliterate text</a></li>
+		<li><a href="subindex/DOH-HYP.htm">Use hyphenation</a></li>
+		<li><a href="subindex/DOH-NSP.htm">Spell out numbers</a></li>
+	</ul>
+	</li>
+	<li>Country or Region Support
+	<ul class="anchor-links">
+		<li><a href="subindex/DOH-DAT.htm">Format dates and times </a></li>
+		<li><a href="subindex/ta060-030.htm">Use and present time zone information </a></li>
+		<li><a href="subindex/DOH-NUM.htm">Present numeric data</a></li>
+		<li><a href="subindex/DOH-CUR.htm">Present currency values</a></li>
+		<li><a href="subindex/DOH-CAL.htm">Present calendars</a></li>
+		<li><a href="subindex/DOH-COL.htm">Present colored object</a></li>
+		<li><a href="subindex/DOH-ICN.htm">Present icon</a></li>
+		<li><a href="subindex/DOH-MEA.htm">Present numbers associated with measurement</a></li>
+		<li><a href="subindex/DOH-PRN.htm">Print out pages</a></li>
+		<li><a href="subindex/DOH-PHO.htm">Present telephone numbers</a></li>
+		<li><a href="subindex/DOH-NSS.htm">Present Non-European numbers</a></li>
+		<li><a href="subindex/DOH-HNM.htm">Present human name</a></li>
+		<li><a href="subindex/DOH-ADR.htm">Present address format</a></li>
+	</ul>
+	</li>
+	<li>Translatability
+	<ul class="anchor-links">
+		<li><a href="subindex/ta060-070.htm">Isolate translatable messages</a></li>
+		<li><a href="subindex/ta060-080.htm">Present translated message </a></li>
+		<li><a href="subindex/ta060-090.htm">Detect message concatenation</a></li>
+		<li><a href="subindex/ta060-100.htm">Detect message overflow</a></li>
+		<li><a href="subindex/ta060-110.htm">Present translated messages in hover help balloons</a></li>
+		<li><a href="subindex/DOH-MSV.htm">Support variables in translatable text</a></li>
+		<li><a href="subindex/DOH-EXT.htm">Present link information</a> (includes Language and Cultural Selectability)</li>
+		<li><a href="subindex/DOH-SGA.htm">Categorize translation resources</a></li>
+		<li><a href="subindex/DOH-TFM.htm">Provide translation files</a></li>
+	</ul>
+	</li>
+</ul>
+<br />
+<hr />
+<h2><a name="Appendices">Appendices</a></h2>
+
+<br/>
+
+
+
+
+<!-- top of appendices -->
+
+<div id="tab_appendix">
+ 
+ <ul id="tab">
+  <li class="selected"><a href="#alphabetical">Alphabetical order</a></li>
+  <li><a href="#functional">Functional order</a></li>
+ </ul>
+ 
+ <dl id="alphabetical">
+  <dt>Alphabetical order</dt><a name="alphabetical"></a>
+  <dd>
+<a target="Appendix-A" href="appendices/Appendix-A.htm">Appendix-A: Test data characters</a> <br />
+<a target="Appendix-B" href="appendices/Appendix-B.htm">Appendix-B: Test data for the code conversion</a> <br />
+<a target="Appendix-C" href="appendices/Appendix-C.htm">Appendix-C: Thai language text iteration test data example</a> <br />
+<a target="Appendix-D" href="appendices/Appendix-D.htm">Appendix-D: Exemplar characters of Unicode Common Locale Data Repository </a><br />
+<a target="Appendix-E" href="appendices/Appendix-E.htm">Appendix-E: Arabic language test data example</a> <br />
+<a target="Appendix-F" href="appendices/Appendix-F.htm">Appendix-F: Rational Pseudo Translator (RPX)</a> <br />
+<a target="Appendix-G" href="appendices/Appendix-G.htm">Appendix-G: Unicode CJK unified ideographs extension-B on Windows platforms</a> <br />
+<a target="Appendix-H" href="appendices/Appendix-H.htm">Appendix-H: Unicode CJK Unified Ideographs extension-B on Linux</a> <br />
+<a target="Appendix-I" href="appendices/Appendix-I.htm">Appendix-I: How to setup bidirectional environment in Windows XP</a> <br />
+<a target="Appendix-J" href="appendices/Appendix-J.htm">Appendix-J: How to set encodings of terminal emulators</a> <br />
+<a target="Appendix-K" href="appendices/Appendix-K.htm">Appendix-K: How to change the locale or cultural preferences (Java, WinXP, Vista, Linux, AIX, Solaris, i5/OS, zOS (Unix System Services), Mac OS X, iOS(iPhone)) </a> <br />
+<a target="Appendix-L" href="appendices/Appendix-L.htm">Appendix-L: How to change the language preference of Web browsers (IE, Mozilla, Firefox, Opera, Safari for Mac)</a> <br />
+Appendix-M: (Archived) <br />
+<a target="Appendix-N" href="appendices/Appendix-N.htm">Appendix-N: How to use an IME on Windows XP</a> <br />
+<a target="Appendix-O" href="appendices/Appendix-O.htm">Appendix-O: How to save files in Unicode</a> <br />
+<a target="Appendix-P" href="appendices/Appendix-P.htm">Appendix-P: ICU Unicode string comparison tool</a><br />
+<a target="Appendix-Q" href="appendices/Appendix-Q.htm">Appendix-Q: Collation test data</a><br />
+<a target="Appendix-R" href="appendices/Appendix-R.htm">Appendix-R: How to change the numeric preference on Windows platforms</a><br />
+<a target="Appendix-S" href="appendices/Appendix-S.htm">Appendix-S: Locale customization</a><br />
+<a target="Appendix-T" href="appendices/Appendix-T.htm">Appendix-T: GVT Tips on OS/400 V5 (a.k.a. i5/OS)</a><br />
+<a target="Appendix-U" href="appendices/Appendix-U.htm">Appendix-U: GVT Tips on z/OS</a><br />
+<a target="Appendix-V" href="appendices/Appendix-V.htm">Appendix-V: Enabling bidi in Firefox</a><br />
+<a target="Appendix-W" href="appendices/Appendix-W.htm">Appendix-W: What are differences between MUI in Windows Vista/7 and Translated OS</a><br />
+<a target="Appendix-X" href="appendices/Appendix-X.htm">Appendix-X: Tips on problem determination in GVT</a><br/>
+<a target="Appendix-Y" href="appendices/Appendix-Y.htm">Appendix-Y: GVT Test data in XML format</a><br />
+</dd>
+ </dl>
+ 
+ <dl id="functional">
+  <dt>Functional order</dt><a name="functional"></a>
+  <dd>
+<b><a name="testdata">Test Data</a></b><br />
+<a target="Appendix-A" href="appendices/Appendix-A.htm">Appendix-A: Test data characters</a> <br />
+<a target="Appendix-B" href="appendices/Appendix-B.htm">Appendix-B: Test data for the code conversion</a> <br />
+<a target="Appendix-C" href="appendices/Appendix-C.htm">Appendix-C: Thai language text iteration test data example</a> <br />
+<a target="Appendix-D" href="appendices/Appendix-D.htm">Appendix-D: Exemplar characters of Unicode Common Locale
+Data Repository </a>&nbsp;<br />
+<a target="Appendix-E" href="appendices/Appendix-E.htm">Appendix-E: Arabic language test data example</a> <br />
+<a target="Appendix-Q" href="appendices/Appendix-Q.htm">Appendix-Q: Collation test data</a><br />
+<a target="Appendix-Y" href="appendices/Appendix-Y.htm">Appendix-Y: GVT Test data in XML format</a><br />
+
+<br/>
+<b><a name="testenvironment">Test Environment Setup</a></b><br />
+<a target="Appendix-G" href="appendices/Appendix-G.htm">Appendix-G: Unicode CJK unified ideographs extension-B on
+Windows platforms</a> <br />
+<a target="Appendix-H" href="appendices/Appendix-H.htm">Appendix-H: Unicode CJK Unified Ideographs extension-B on
+Linux</a> <br />
+<a target="Appendix-I" href="appendices/Appendix-I.htm">Appendix-I: How to setup bidirectional environment in
+Windows XP</a> <br />
+<a target="Appendix-J" href="appendices/Appendix-J.htm">Appendix-J: How to set encodings of terminal emulators</a> <br />
+<a target="Appendix-K" href="appendices/Appendix-K.htm">Appendix-K: How to change the runtime locale (Java, WinXP, Vista, Linux, AIX, Solaris, i5/OS, zOS (Unix System Services), Mac OS X) </a> <br />
+<a target="Appendix-L" href="appendices/Appendix-L.htm">Appendix-L: How to change the language preference of Web
+browsers (IE, Mozilla, Firefox, Opera, Safari for Mac)</a> <br />
+<a target="Appendix-R" href="appendices/Appendix-R.htm">Appendix-R: How to change the numeric preference on Windows platforms</a><br />
+<a target="Appendix-S" href="appendices/Appendix-S.htm">Appendix-S: Locale customization</a><br />
+<a target="Appendix-V" href="appendices/Appendix-V.htm">Appendix-V: Enabling bidi in Firefox</a><br />
+<a target="Appendix-W" href="appendices/Appendix-W.htm">Appendix-W: What are differences between MUI in Windows Vista/7 and Translated OS</a><br />
+
+<br />
+<b><a name="tools">Tools for Testing</a></b><br />
+<a target="Appendix-F" href="appendices/Appendix-F.htm">Appendix-F: Rational Pseudo Translator (RPX)</a> <br />
+Appendix-M: (Archived)<br />
+<a target="Appendix-P" href="appendices/Appendix-P.htm">Appendix-P: ICU Unicode string comparison tool</a><br />
+
+<br />
+<b><a name="tips">Tips and Problem Determination</a></b><br />
+<a target="Appendix-N" href="appendices/Appendix-N.htm">Appendix-N: How to use an IME on Windows XP</a> <br />
+<a target="Appendix-O" href="appendices/Appendix-O.htm">Appendix-O: How to save files in Unicode</a> <br />
+<a href="appendices/Appendix-T.htm" target="Appendix-T">Appendix-T: GVT Tips on OS/400 V5 (a.k.a. i5/OS)<br />
+</a><a href="appendices/Appendix-U.htm" target="Appendix-U">Appendix-U: GVT Tips on z/OS</a><br />
+</a><a href="appendices/Appendix-X.htm" target="Appendix-X">Appendix-X: Tips on problem determination in GVT</a>
+
+<p>&nbsp;</p>
+ </dd>
+ </dl>
+ 
+ 
+</div>
+
+<!-- end of appendices -->
+
+
+<b> <!-- end of my content --></b>
+<div id="page-tools-main">
+<span class='small'>
+<b>Note:</b> The GVT Guide does not define a test case, it
+provides generic guidance for the creation of test cases that are specific to the software under test. There may be
+multiple places in the software being tested that need similar test cases. Take care when copying test data from the GVT
+Guide to your test case repository so that it does not get corrupted by your test case storage systems. It is advisable
+to store a date and link to this page in your test cases so that you can check for updates to the GVT Guide in future
+test cycles of your software.</span><br />
+<br />
+<br />
+<table border="0" width="100%" summary="">
+	<tr>
+		<td width="50%">
+		<h6><a class="email-link" href="http://labweb.torolab.ibm.com/gcoc/contact.html">Comments</a></h6>
+		</td>
+		<td width="50%" align="right">
+		<h6><img alt="" border="0" src="css/icon/u.gif" width="7" height="7" /><a href=#top>Back to top</a></h6>
+		</td>
+	</tr>
+</table>
+<a class="terms" href="http://w3.ibm.com/w3/info_terms_of_use.html">Terms of use</a></div>
+</div>
+<!-- stop main content --></div>
+<!-- stop content //////////////////////////////////////////// -->
+</body>
+</html>
